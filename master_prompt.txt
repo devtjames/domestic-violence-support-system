@@ -1,0 +1,1882 @@
+# Master Prompt: Web-Based Domestic Violence Awareness and Support Platform
+
+## Project Title
+
+**Development of a Web-Based Domestic Violence Awareness and Support Platform**
+
+## Project Level
+
+Higher National Diploma (HND) Final Year Project.
+
+## Main Goal
+
+Build a complete web-based platform that provides domestic violence awareness information and gives people a private way to request support.
+
+The system should allow visitors to learn about domestic violence without creating an account. People who need help should be able to submit a support request anonymously or through a registered account.
+
+Authorized support officers should be able to review cases, communicate privately with registered users, update case status, add case notes, and maintain proper records.
+
+Administrators should manage users, support officers, awareness content, support resources, cases, reports, system settings, and audit records.
+
+The system is an academic support platform. It must not present itself as a replacement for emergency services, law enforcement, medical professionals, lawyers, or professional counsellors.
+
+---
+
+# 1. Technology Stack
+
+Build the application with:
+
+* Laravel 12
+* PHP 8.2+
+* MySQL
+* Blade templates
+* Tailwind CSS
+* JavaScript
+* Laravel authentication
+* Laravel validation
+* Laravel middleware
+* Eloquent ORM
+* Laravel migrations
+* Laravel seeders
+* Laravel notifications where suitable
+* Chart.js for dashboard statistics if required
+
+Prefer standard Laravel features before adding third-party packages.
+
+Do not build this as an SPA.
+
+Do not use React, Vue, Next.js, or another frontend framework.
+
+Use Blade and Tailwind CSS.
+
+---
+
+# 2. Development Approach
+
+Build the system in clear modules.
+
+Complete one module properly before moving to the next.
+
+For every module:
+
+1. Review the existing project first.
+2. Do not destroy working features from previous modules.
+3. Create required migrations.
+4. Create or update models.
+5. Create controllers.
+6. Create validation rules.
+7. Create routes.
+8. Create middleware where needed.
+9. Create Blade pages.
+10. Add permissions and authorization.
+11. Add success and error feedback.
+12. Test the module.
+13. Keep the UI consistent with the rest of the system.
+
+Do not duplicate code unnecessarily.
+
+Use clean Laravel MVC structure.
+
+---
+
+# 3. System Users
+
+The application should support the following users.
+
+## 3.1 Visitor
+
+A visitor does not need an account.
+
+A visitor can:
+
+* Visit the homepage
+* Read awareness articles
+* Read information about domestic violence
+* View types of abuse
+* View warning signs
+* Read safety information
+* Access support resources
+* View frequently asked questions
+* Submit an anonymous support request
+* Check an anonymous case using a generated case reference and access code
+* Register for an account
+* Login
+
+---
+
+## 3.2 Registered User
+
+A registered user can:
+
+* Login
+* Manage their profile
+* Read awareness information
+* Submit a support request
+* View their submitted cases
+* View case status
+* Send private messages relating to their case
+* Receive replies from support officers
+* View support resources
+* View previous conversations
+* Close a support request where allowed
+* Change password
+* Logout
+
+The user should only see their own cases and messages.
+
+---
+
+## 3.3 Support Officer
+
+A support officer is an authorized staff member responsible for assisting users.
+
+Support officers can:
+
+* Login to a protected dashboard
+* View assigned cases
+* View open cases
+* Accept or receive case assignments
+* Read case details
+* Reply to registered users
+* Add internal case notes
+* Change case status
+* Set case priority
+* Record actions taken
+* Refer a case to another support officer where permitted
+* View case history
+* View support resources
+* Update their profile
+* Logout
+
+Support officers must not manage administrator accounts or system-wide settings.
+
+---
+
+## 3.4 Administrator
+
+The administrator has full control of the platform.
+
+Admin can:
+
+* Manage users
+* Manage support officers
+* Activate or deactivate accounts
+* Manage roles
+* Manage awareness categories
+* Manage awareness articles
+* Manage FAQs
+* Manage support resources
+* Manage support organizations
+* View all cases
+* Assign cases to support officers
+* Reassign cases
+* Update case priority
+* View case history
+* View reports
+* View audit logs
+* Manage contact information
+* Manage system settings
+* Manage dashboard statistics
+
+---
+
+# 4. Main Modules
+
+Build the application using the following modules.
+
+---
+
+# MODULE 1: Project Foundation and Authentication
+
+Set up the Laravel project structure.
+
+Create authentication for:
+
+* Registered users
+* Support officers
+* Administrators
+
+Use one users table where practical, with a role field or proper role structure.
+
+Possible roles:
+
+* user
+* support_officer
+* admin
+
+Create middleware to protect role-specific areas.
+
+Required features:
+
+* Registration
+* Login
+* Logout
+* Forgot password
+* Reset password
+* Change password
+* Profile management
+* Account status
+* Role-based redirects after login
+
+Example:
+
+Admin login:
+
+`/admin/dashboard`
+
+Support officer login:
+
+`/officer/dashboard`
+
+User login:
+
+`/dashboard`
+
+Disabled accounts must not be able to login.
+
+---
+
+# MODULE 2: Public Website and Awareness Section
+
+Create a professional public-facing website.
+
+Pages should include:
+
+* Homepage
+* About Domestic Violence
+* Types of Abuse
+* Warning Signs
+* Safety Information
+* Awareness Articles
+* Article Details
+* FAQs
+* Support Resources
+* Get Help
+* Contact
+* Login
+* Register
+
+The homepage should include:
+
+* Hero section
+* Short explanation of domestic violence
+* Types of abuse
+* Warning signs
+* How the platform helps
+* Latest awareness articles
+* Support resources
+* Call to action
+* Get Support button
+* Anonymous Help button
+* Quick Exit button
+
+The public website should work well on desktop and mobile.
+
+---
+
+# MODULE 3: Awareness Content Management
+
+Allow administrators to manage educational content.
+
+Create awareness categories.
+
+Examples:
+
+* Physical Abuse
+* Emotional Abuse
+* Psychological Abuse
+* Financial Abuse
+* Sexual Abuse
+* Digital Abuse
+* Child-related Abuse
+* Safety Planning
+* Recovery and Support
+
+Article fields should include:
+
+* Title
+* Slug
+* Category
+* Featured image
+* Short description
+* Full content
+* Author
+* Status
+* Published date
+* Created date
+* Updated date
+
+Article statuses:
+
+* Draft
+* Published
+* Archived
+
+Only published articles should appear publicly.
+
+Admin should be able to:
+
+* Create articles
+* Edit articles
+* Delete or archive articles
+* Publish articles
+* Search articles
+* Filter by category
+* Filter by status
+
+---
+
+# MODULE 4: Support Resource Management
+
+Create a section for organizations and resources that may help users.
+
+Resource fields:
+
+* Organization name
+* Resource type
+* Description
+* Phone
+* Email
+* Website
+* Address
+* State or location
+* Availability
+* Status
+
+Resource types can include:
+
+* Counselling
+* Shelter
+* Medical Support
+* Legal Support
+* Community Support
+* Emergency Support
+* Child Protection
+* General Support
+
+Administrators should manage these resources.
+
+Do not hard-code emergency phone numbers unless they have been verified.
+
+Make emergency contacts configurable from the admin dashboard.
+
+---
+
+# MODULE 5: Registered User Support Requests
+
+Registered users should be able to submit private support requests.
+
+Support request fields:
+
+* Case reference
+* User
+* Abuse type
+* Subject
+* Description
+* Preferred contact method
+* Safe contact time
+* Urgency
+* Current status
+* Assigned support officer
+* Created date
+* Updated date
+
+Possible urgency levels:
+
+* Low
+* Medium
+* High
+* Critical
+
+Possible case statuses:
+
+* Submitted
+* Under Review
+* Assigned
+* In Progress
+* Awaiting User
+* Referred
+* Resolved
+* Closed
+
+Generate a unique case reference.
+
+Example:
+
+`DV-2026-000123`
+
+Do not expose database IDs in public-facing case references.
+
+Users must only access cases belonging to them.
+
+---
+
+# MODULE 6: Anonymous Support Requests
+
+Allow people to request support without creating an account.
+
+Anonymous form should avoid collecting unnecessary personal information.
+
+Possible fields:
+
+* Optional nickname
+* Abuse type
+* Subject
+* Description
+* Preferred response method
+* Optional email
+* Optional phone
+* Safe contact instructions
+* Urgency
+
+After submission, generate:
+
+* Case reference
+* Secure access code
+
+Example:
+
+Case Reference:
+
+`DV-2026-000124`
+
+Access Code:
+
+`A7K9P2`
+
+The anonymous user should be clearly instructed to save both values.
+
+Create an anonymous case tracking page.
+
+The person enters:
+
+* Case reference
+* Access code
+
+If valid, they can see:
+
+* Case status
+* Public responses
+* Submission date
+* Latest update
+
+Do not expose internal support officer notes.
+
+Protect the anonymous lookup against brute-force attempts using rate limiting.
+
+Store the access code securely.
+
+Do not store the access code as plain text if avoidable.
+
+---
+
+# MODULE 7: Case Management
+
+Build full case management for support officers and administrators.
+
+Case page should show:
+
+* Case reference
+* User or anonymous indicator
+* Abuse type
+* Subject
+* Description
+* Urgency
+* Status
+* Assigned officer
+* Submission date
+* Last update
+* Contact preference
+* Safe contact instructions
+* Conversation history
+* Case activity history
+
+Admin can:
+
+* Assign case
+* Reassign case
+* Change priority
+* Change status
+* View full case history
+
+Support officers can:
+
+* View assigned cases
+* Update status
+* Reply
+* Add case notes
+* Mark case for referral
+* Mark resolved
+
+Case reassignment must be recorded in the activity history.
+
+---
+
+# MODULE 8: Private Messaging
+
+Create secure case-based communication between registered users and support officers.
+
+Messages must belong to a case.
+
+Fields:
+
+* Case
+* Sender
+* Receiver
+* Message
+* Read status
+* Date sent
+* Date read
+
+Registered users should only communicate inside their own support cases.
+
+Support officers should only respond to cases they are authorized to access.
+
+Messages should display chronologically.
+
+Add:
+
+* Unread message indicators
+* Read status
+* Date and time
+* Conversation thread
+
+Do not build public chat rooms.
+
+Do not allow users to message other users.
+
+---
+
+# MODULE 9: Internal Case Notes
+
+Support officers need private case notes.
+
+Internal notes must never be visible to normal users or anonymous visitors.
+
+Fields:
+
+* Case
+* Officer
+* Note
+* Date created
+* Date updated
+
+Admin should be able to view notes where authorized.
+
+Record note creation in the case activity log without exposing the note itself publicly.
+
+---
+
+# MODULE 10: Case Activity History
+
+Create a complete history for each case.
+
+Track events such as:
+
+* Case submitted
+* Case assigned
+* Case reassigned
+* Status changed
+* Priority changed
+* Officer responded
+* User responded
+* Internal note added
+* Case referred
+* Case resolved
+* Case closed
+* Case reopened
+
+Fields may include:
+
+* Case
+* User who performed action
+* Action type
+* Description
+* Previous value
+* New value
+* IP address where appropriate
+* Date and time
+
+Use this for accountability and project demonstration.
+
+---
+
+# MODULE 11: Quick Exit and Privacy Features
+
+Privacy is a major part of this project.
+
+Add a visible Quick Exit button on public and user-facing support pages.
+
+When clicked:
+
+1. Immediately navigate away from the platform.
+2. Redirect to a neutral configurable website.
+
+Do not claim that the Quick Exit button deletes browser history.
+
+Add a small privacy message explaining that browser history may still remain.
+
+Avoid exposing sensitive information in page titles where possible.
+
+Example:
+
+Avoid:
+
+`Mary's Domestic Abuse Case`
+
+Use:
+
+`Support Case DV-2026-000123`
+
+Do not expose sensitive case descriptions in notification previews.
+
+---
+
+# MODULE 12: Admin Dashboard
+
+Create an admin dashboard.
+
+Display cards for:
+
+* Total users
+* Total support officers
+* Total cases
+* Open cases
+* Cases under review
+* Cases in progress
+* Resolved cases
+* Anonymous cases
+* Registered cases
+* High-priority cases
+* Published articles
+* Support resources
+
+Add charts such as:
+
+* Cases by month
+* Cases by abuse type
+* Cases by status
+* Cases by urgency
+* Anonymous vs registered cases
+
+Add recent activity section.
+
+Add recent cases section.
+
+Do not show sensitive case descriptions directly on dashboard widgets.
+
+---
+
+# MODULE 13: Support Officer Dashboard
+
+Create a dedicated officer dashboard.
+
+Show:
+
+* Assigned cases
+* Open assigned cases
+* High-priority cases
+* Cases awaiting response
+* Recently assigned cases
+* Unread messages
+* Recently updated cases
+
+Allow quick access to assigned cases.
+
+Support officers should not see cases they are not authorized to access unless the system permits unassigned case review.
+
+---
+
+# MODULE 14: Registered User Dashboard
+
+Create a private dashboard for registered users.
+
+Show:
+
+* Active cases
+* Resolved cases
+* Latest messages
+* Latest case updates
+* Support resources
+* Awareness articles
+
+Provide buttons for:
+
+* Request Support
+* View Cases
+* Read Messages
+* View Resources
+
+Avoid displaying sensitive details directly on dashboard cards.
+
+---
+
+# MODULE 15: FAQ Management
+
+Create an FAQ section.
+
+Fields:
+
+* Question
+* Answer
+* Category
+* Sort order
+* Status
+
+Admin can:
+
+* Add FAQ
+* Edit FAQ
+* Delete FAQ
+* Activate or deactivate FAQ
+* Reorder FAQs
+
+Public visitors can view active FAQs.
+
+---
+
+# MODULE 16: Contact and General Enquiries
+
+Create a basic contact form for general enquiries.
+
+Fields:
+
+* Name
+* Email
+* Subject
+* Message
+
+This must remain separate from support cases.
+
+Admin can view contact messages.
+
+Do not treat contact messages automatically as domestic violence cases.
+
+---
+
+# MODULE 17: User Management
+
+Admin should manage registered users.
+
+Functions:
+
+* View users
+* Search users
+* Filter users
+* View user profile
+* Activate user
+* Deactivate user
+* View number of cases submitted
+* View account creation date
+
+Do not allow administrators to casually view passwords.
+
+Passwords must always remain hashed.
+
+---
+
+# MODULE 18: Support Officer Management
+
+Admin can manage support officers.
+
+Officer fields:
+
+* Full name
+* Email
+* Phone
+* Gender if required by project scope
+* Staff ID
+* Role
+* Specialization
+* Status
+* Date joined
+
+Possible specializations:
+
+* General Support
+* Counselling
+* Legal Support
+* Child Protection
+* Social Support
+
+Admin can:
+
+* Add officer
+* Edit officer
+* Activate officer
+* Deactivate officer
+* View assigned case count
+
+Do not permanently delete officers who already have historical case activity.
+
+Deactivate them instead where possible.
+
+---
+
+# MODULE 19: Notifications
+
+Create in-system notifications.
+
+Examples:
+
+User notifications:
+
+* Support request received
+* Case status updated
+* Support officer replied
+* Case resolved
+
+Officer notifications:
+
+* New case assigned
+* New user reply
+* Case reassigned
+* High-priority case assigned
+
+Admin notifications:
+
+* New critical case
+* New support request
+* Support officer activity where required
+
+Be careful not to include sensitive information in notification titles.
+
+Example:
+
+Good:
+
+`Your support case has been updated.`
+
+Avoid:
+
+`Your physical abuse complaint has been updated.`
+
+---
+
+# MODULE 20: Reports and Statistics
+
+Create an admin reports module.
+
+Reports should include:
+
+* Cases by date range
+* Cases by status
+* Cases by abuse type
+* Cases by priority
+* Anonymous cases
+* Registered cases
+* Cases by support officer
+* Resolved cases
+* Pending cases
+
+Allow filters.
+
+Possible export options:
+
+* CSV
+* Print-friendly report
+
+PDF export can be added if easy to maintain.
+
+Do not expose private case descriptions in general statistical reports.
+
+---
+
+# MODULE 21: Audit Logging
+
+Create an audit trail for important administrative actions.
+
+Track:
+
+* Admin login
+* Officer login
+* User status change
+* Officer creation
+* Officer update
+* Case assignment
+* Case reassignment
+* Case status change
+* Article creation
+* Article update
+* Resource update
+* System setting change
+
+Audit fields:
+
+* User
+* Action
+* Module
+* Description
+* IP address
+* User agent where suitable
+* Date and time
+
+Audit records should not be editable from the normal interface.
+
+---
+
+# MODULE 22: System Settings
+
+Create admin settings.
+
+Settings can include:
+
+* Platform name
+* Platform email
+* Support phone
+* Support email
+* Address
+* Quick Exit destination
+* Case reference prefix
+* Contact information
+* Homepage settings
+* Footer information
+
+Do not hard-code values that an administrator may need to change later.
+
+---
+
+# 5. Database Design
+
+Create proper database relationships.
+
+Possible tables:
+
+* users
+* awareness_categories
+* awareness_articles
+* abuse_types
+* support_cases
+* anonymous_case_access
+* case_messages
+* case_notes
+* case_activities
+* support_resources
+* faq_categories
+* faqs
+* contact_messages
+* notifications
+* audit_logs
+* system_settings
+
+Use proper foreign keys.
+
+Use indexes where useful.
+
+Use timestamps.
+
+Use soft deletes where appropriate.
+
+---
+
+# 6. Suggested Support Case Structure
+
+The `support_cases` table may contain:
+
+* id
+* case_reference
+* user_id nullable
+* is_anonymous
+* abuse_type_id
+* subject
+* description
+* urgency
+* status
+* assigned_officer_id nullable
+* preferred_contact_method nullable
+* safe_contact_time nullable
+* safe_contact_instruction nullable
+* resolution_summary nullable
+* resolved_at nullable
+* closed_at nullable
+* created_at
+* updated_at
+
+Anonymous contact information should be stored carefully and only when supplied.
+
+---
+
+# 7. Abuse Types
+
+Seed common abuse categories.
+
+Examples:
+
+* Physical Abuse
+* Emotional Abuse
+* Psychological Abuse
+* Sexual Abuse
+* Financial Abuse
+* Digital Abuse
+* Verbal Abuse
+* Coercive Control
+* Child-related Abuse
+* Other
+
+Allow the administrator to manage abuse types.
+
+---
+
+# 8. Authorization Rules
+
+Apply strict access control.
+
+## Users
+
+Users can only access:
+
+* Their profile
+* Their own cases
+* Messages connected to their own cases
+
+## Support Officers
+
+Officers can access:
+
+* Their profile
+* Assigned cases
+* Authorized case messages
+* Internal notes
+* Authorized case history
+
+## Admin
+
+Admin can access administrative modules.
+
+Protect routes using middleware, policies, gates, or a clean Laravel authorization structure.
+
+Never rely only on hiding buttons in the frontend.
+
+Always enforce access on the backend.
+
+---
+
+# 9. Security Requirements
+
+Apply standard Laravel security practices.
+
+Use:
+
+* CSRF protection
+* Server-side validation
+* Password hashing
+* Authentication middleware
+* Role authorization
+* Rate limiting
+* Secure sessions
+* Laravel ORM
+* Proper file validation
+* Escaped Blade output
+* Secure password reset
+* Session regeneration after login
+* Protection against mass assignment
+
+Do not store passwords in plain text.
+
+Do not build raw SQL queries unless required.
+
+Avoid exposing sensitive information in URLs.
+
+Do not log passwords, access codes, private messages, or sensitive case descriptions in Laravel logs.
+
+---
+
+# 10. Privacy Requirements
+
+The application handles sensitive information.
+
+Follow these rules:
+
+* Collect only information needed for support.
+* Anonymous reporting must be possible.
+* Do not expose anonymous identity information publicly.
+* Support officers should only access appropriate cases.
+* Internal notes must remain private.
+* Do not show private case information in public URLs.
+* Avoid sensitive information in browser page titles.
+* Avoid sensitive notification previews.
+* Do not display support case data on public pages.
+* Log access to important case actions.
+* Use neutral wording where appropriate.
+
+---
+
+# 11. File Uploads
+
+If attachments are included in support cases, restrict them carefully.
+
+Allowed examples:
+
+* JPG
+* JPEG
+* PNG
+* PDF
+
+Set a reasonable upload size limit.
+
+Rename uploaded files securely.
+
+Do not trust original file names.
+
+Store attachments outside publicly browsable folders where practical.
+
+Serve files through authorized Laravel routes.
+
+A user must only download files belonging to their own case.
+
+An officer must only download attachments for cases they are authorized to access.
+
+If file uploads make the initial project too large, complete the core case system first before adding attachments.
+
+---
+
+# 12. UI Design
+
+Build a calm, professional, privacy-aware interface.
+
+Use Tailwind CSS.
+
+The interface should be:
+
+* Responsive
+* Mobile friendly
+* Easy to navigate
+* Accessible
+* Clear
+* Consistent
+
+Avoid overly dramatic graphics.
+
+Do not use graphic images depicting violence.
+
+Use neutral supportive imagery where needed.
+
+---
+
+# 13. Main Navigation
+
+Public navigation:
+
+* Home
+* About
+* Awareness
+* Warning Signs
+* Safety
+* Resources
+* FAQs
+* Get Support
+* Contact
+* Login
+
+Logged-in user navigation:
+
+* Dashboard
+* Request Support
+* My Cases
+* Messages
+* Resources
+* Awareness
+* Profile
+
+Support officer sidebar:
+
+* Dashboard
+* Assigned Cases
+* Cases
+* Messages
+* Case Notes
+* Resources
+* Profile
+
+Admin sidebar:
+
+* Dashboard
+* Cases
+* Users
+* Support Officers
+* Awareness
+* Categories
+* Abuse Types
+* Resources
+* FAQs
+* Contact Messages
+* Reports
+* Audit Logs
+* Settings
+* Profile
+
+Group the admin sidebar cleanly.
+
+---
+
+# 14. Search and Filters
+
+Add search and filtering where useful.
+
+Cases:
+
+* Search by case reference
+* Filter by status
+* Filter by urgency
+* Filter by abuse type
+* Filter by assigned officer
+* Filter by date
+
+Users:
+
+* Search by name
+* Search by email
+* Filter by status
+
+Articles:
+
+* Search by title
+* Filter by category
+* Filter by status
+
+Resources:
+
+* Search by organization
+* Filter by resource type
+* Filter by location
+
+---
+
+# 15. Dashboard Privacy
+
+Dashboard statistics should use counts and categories.
+
+Do not expose:
+
+* Full case descriptions
+* Private messages
+* Internal notes
+* Anonymous contact details
+
+in dashboard widgets.
+
+A dashboard card may show:
+
+`Critical Cases: 4`
+
+rather than displaying the victims' details.
+
+---
+
+# 16. Case Reference Generation
+
+Generate unique human-readable case references automatically.
+
+Format:
+
+`DV-YEAR-NUMBER`
+
+Example:
+
+`DV-2026-000001`
+
+Use database uniqueness checks.
+
+Do not reuse references.
+
+---
+
+# 17. Status Badge System
+
+Use clear badges.
+
+Examples:
+
+Submitted
+
+Under Review
+
+Assigned
+
+In Progress
+
+Awaiting User
+
+Referred
+
+Resolved
+
+Closed
+
+Use the same status names everywhere in the application.
+
+---
+
+# 18. Validation
+
+Every form must have server-side validation.
+
+Examples:
+
+Registration:
+
+* Valid name
+* Valid email
+* Unique email
+* Strong password
+
+Support case:
+
+* Valid abuse type
+* Subject length
+* Description length
+* Valid urgency value
+
+Anonymous case:
+
+* Validate optional contact fields
+* Require case description
+* Validate urgency
+
+Resources:
+
+* Validate URLs
+* Validate email where provided
+* Validate phone where provided
+
+Display clear validation messages.
+
+---
+
+# 19. Seed Data
+
+Create seeders for development and demonstration.
+
+Create:
+
+* 1 admin
+* 3 support officers
+* 8 to 15 sample registered users
+* Abuse types
+* Awareness categories
+* 10 to 15 awareness articles
+* FAQs
+* Support resources
+* Sample support cases
+* Sample messages
+* Sample case activity
+
+Use clearly fake demonstration data.
+
+Do not use real victims' names or personal case information.
+
+---
+
+# 20. Demo Accounts
+
+Create simple development demo accounts.
+
+Example:
+
+Admin:
+
+`admin@example.com`
+
+Support Officer:
+
+`officer@example.com`
+
+User:
+
+`user@example.com`
+
+Use development-only passwords.
+
+Clearly document them in the project README.
+
+Do not seed predictable accounts automatically in production.
+
+---
+
+# 21. Testing
+
+Add tests for important features.
+
+At minimum test:
+
+* Registration
+* Login
+* Role protection
+* Support case submission
+* Anonymous case submission
+* Case ownership protection
+* Officer case access
+* Admin case assignment
+* Message authorization
+* Internal note privacy
+* Anonymous case lookup
+* Invalid anonymous access code
+* Disabled account login
+* Article publishing
+* Quick Exit configuration where practical
+
+Use Laravel feature tests.
+
+---
+
+# 22. Error Handling
+
+Create clean error handling.
+
+Use proper pages for:
+
+* 403 Unauthorized
+* 404 Not Found
+* 419 Session Expired
+* 500 Server Error
+
+Do not expose debug stack traces in production.
+
+---
+
+# 23. README Documentation
+
+Create a complete README.
+
+Include:
+
+* Project title
+* Project description
+* Project objectives
+* Main features
+* User roles
+* Technology stack
+* Requirements
+* Installation steps
+* Environment setup
+* Database setup
+* Migration instructions
+* Seeder instructions
+* Running the project
+* Demo accounts
+* Testing instructions
+* Main modules
+* Screenshots section placeholder
+* Security notes
+* Privacy notes
+
+---
+
+# 24. Installation Requirements
+
+Document requirements such as:
+
+* PHP 8.2+
+* Composer
+* MySQL
+* Node.js
+* NPM
+* Laravel-compatible environment
+
+Local development can use:
+
+* Laragon
+* XAMPP where configured properly
+* Laravel development server
+
+---
+
+# 25. Academic Project Objectives
+
+The finished system should demonstrate the ability to:
+
+1. Provide accessible domestic violence awareness information.
+2. Allow users to request support electronically.
+3. Allow anonymous support requests.
+4. Provide secure communication between users and support officers.
+5. Provide case tracking and management.
+6. Protect sensitive user information using access controls.
+7. Allow administrators to manage awareness resources.
+8. Maintain records of case activity.
+9. Generate useful reports for administrators.
+10. Provide a responsive platform accessible from phones and computers.
+
+---
+
+# 26. System Scope
+
+The project is limited to:
+
+* Domestic violence awareness
+* Educational content
+* Support request submission
+* Anonymous reporting
+* Case management
+* Private support communication
+* Support resources
+* Administrative reports
+* User management
+* Support officer management
+* Audit logging
+
+The system does not:
+
+* Automatically contact police
+* Automatically contact emergency services
+* Diagnose medical conditions
+* Provide automated legal advice
+* Replace professional counselling
+* Track victims using GPS
+* Perform surveillance
+* Automatically determine whether an allegation is true
+* Provide public discussions of individual cases
+
+---
+
+# 27. Recommended Development Order
+
+Build the project in this order:
+
+### Phase 1
+
+Project setup, authentication, roles and layouts.
+
+### Phase 2
+
+Public website and awareness pages.
+
+### Phase 3
+
+Awareness content management.
+
+### Phase 4
+
+Support resources and FAQs.
+
+### Phase 5
+
+Registered user support requests.
+
+### Phase 6
+
+Anonymous support requests and secure tracking.
+
+### Phase 7
+
+Case management and officer assignment.
+
+### Phase 8
+
+Private case messaging.
+
+### Phase 9
+
+Internal notes and case activity history.
+
+### Phase 10
+
+User, officer and admin dashboards.
+
+### Phase 11
+
+Notifications.
+
+### Phase 12
+
+Reports and statistics.
+
+### Phase 13
+
+Audit logs and settings.
+
+### Phase 14
+
+Privacy and Quick Exit features.
+
+### Phase 15
+
+Testing, validation, cleanup and documentation.
+
+---
+
+# 28. Coding Standards
+
+Follow Laravel conventions.
+
+Use:
+
+* Controllers
+* Models
+* Form Requests where useful
+* Policies where useful
+* Middleware
+* Services where business logic becomes large
+* Named routes
+* Eloquent relationships
+* Database transactions where multiple linked writes must succeed together
+
+Avoid:
+
+* Huge controllers
+* Repeated queries
+* Duplicated Blade code
+* Business logic inside Blade
+* Hard-coded role checks everywhere
+* Hard-coded URLs
+* Hard-coded support organizations
+* Hard-coded emergency contacts
+
+Use reusable Blade components for:
+
+* Buttons
+* Forms
+* Alerts
+* Status badges
+* Cards
+* Tables
+* Modal dialogs
+* Pagination
+* Empty states
+
+---
+
+# 29. Database Relationships
+
+Examples:
+
+User:
+
+* hasMany supportCases
+* hasMany sentMessages
+* hasMany notifications
+
+SupportCase:
+
+* belongsTo user nullable
+* belongsTo abuseType
+* belongsTo assignedOfficer
+* hasMany messages
+* hasMany notes
+* hasMany activities
+
+AbuseType:
+
+* hasMany supportCases
+
+AwarenessCategory:
+
+* hasMany awarenessArticles
+
+SupportOfficer:
+
+Use the users table with officer role unless a separate profile table is needed.
+
+---
+
+# 30. Case Assignment Workflow
+
+Example workflow:
+
+User submits case.
+
+System sets:
+
+`Submitted`
+
+Admin reviews case.
+
+Admin assigns support officer.
+
+System changes status to:
+
+`Assigned`
+
+Officer opens case.
+
+Officer changes status to:
+
+`In Progress`
+
+Officer sends response.
+
+Case may change to:
+
+`Awaiting User`
+
+User responds.
+
+Officer continues handling case.
+
+When support process is complete:
+
+`Resolved`
+
+After final closure:
+
+`Closed`
+
+All major status changes should be recorded in case activity.
+
+---
+
+# 31. Anonymous Case Workflow
+
+Anonymous visitor selects:
+
+`Get Anonymous Support`
+
+They complete the form.
+
+System generates:
+
+* Case reference
+* Secure access code
+
+The system shows the credentials once clearly.
+
+Anonymous visitor later visits:
+
+`Track Anonymous Case`
+
+They enter:
+
+* Case reference
+* Access code
+
+System validates credentials.
+
+If valid, show only information intended for that anonymous user.
+
+Never show:
+
+* Internal notes
+* Admin comments
+* Other cases
+* Officer private records
+
+---
+
+# 32. Critical Case Handling
+
+If urgency is marked Critical:
+
+* Highlight it clearly for authorized support staff.
+* Place it high in officer/admin queues.
+* Create an internal notification.
+* Display appropriate configurable guidance to the person submitting the request.
+
+Do not automatically contact third parties.
+
+Do not claim that the platform has dispatched emergency assistance unless such a feature genuinely exists.
+
+---
+
+# 33. Final Project Deliverables
+
+The finished application should contain:
+
+* Complete Laravel source code
+* Database migrations
+* Database seeders
+* Blade templates
+* Responsive frontend
+* Authentication
+* Role-based authorization
+* Public awareness website
+* User dashboard
+* Support officer dashboard
+* Admin dashboard
+* Support request system
+* Anonymous request system
+* Case management
+* Messaging
+* Internal notes
+* Case activity history
+* Support resource management
+* FAQ management
+* Notifications
+* Reports
+* Audit logs
+* System settings
+* Quick Exit
+* Testing
+* README
+* `.env.example`
+
+---
+
+# 34. Final Quality Review
+
+Before considering the project complete, review the entire application.
+
+Check for:
+
+* Broken routes
+* Missing authorization
+* Users seeing other users' cases
+* Officers accessing unauthorized cases
+* Anonymous case security problems
+* Missing validation
+* Missing CSRF protection
+* Broken mobile layouts
+* Empty pages
+* Incorrect status values
+* Missing database relationships
+* Hard-coded configuration
+* Duplicate code
+* Sensitive data displayed unnecessarily
+* Poor error messages
+* Missing activity records
+* Broken pagination
+* Broken filters
+* Inconsistent UI
+
+Fix all discovered issues.
+
+---
+
+# 35. Instructions to Codex
+
+Work as a senior Laravel developer responsible for completing this HND academic project.
+
+Before writing code:
+
+1. Inspect the existing Laravel project.
+2. Understand its current structure.
+3. Check existing migrations, models, routes, controllers and Blade templates.
+4. Reuse working code instead of recreating it unnecessarily.
+5. Identify what module is currently being worked on.
+
+Do not attempt to build every module in one uncontrolled change.
+
+Work module by module.
+
+For each module:
+
+* Explain briefly what will be changed.
+* Create the necessary database structure.
+* Create backend logic.
+* Create frontend pages.
+* Apply authorization.
+* Add validation.
+* Test the flow.
+* Check existing functionality after making changes.
+
+Never remove an existing working feature simply because another approach is preferred.
+
+Do not redesign the whole application when only one module needs work.
+
+Use migrations rather than manually editing database tables.
+
+Do not modify old migrations that may already have been executed unless there is a strong development-only reason. Prefer new migrations for structural changes.
+
+Use Laravel conventions.
+
+Prioritize working, maintainable code over unnecessary complexity.
+
+After completing each module, provide:
+
+1. What was completed.
+2. Files created.
+3. Files modified.
+4. Database changes.
+5. Routes added.
+6. How to test the module manually.
+7. Any remaining work before moving to the next module.
+
+Do not move to the next module until the current module is functional.
